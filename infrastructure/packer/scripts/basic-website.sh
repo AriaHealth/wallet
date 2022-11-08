@@ -7,7 +7,6 @@ curl --silent --location https://rpm.nodesource.com/setup_14.x | bash -
 curl --silent --location https://dl.yarnpkg.com/rpm/yarn.repo | tee /etc/yum.repos.d/yarn.repo
 rpm --import https://dl.yarnpkg.com/rpm/pubkey.gpg
 
-
 yum update -y
 yum install -y httpd git nodejs yarn
 
@@ -24,7 +23,11 @@ echo -e "Host *\nUseKeychain yes" >> /home/ec2-user/.ssh/config
 
 echo "Cloning repo"
 cd /home/ec2-user/
-git clone git@github.com:AriaHealth/wallet.git
+# git clone git@github.com:AriaHealth/wallet.git
+git clone https://github.com/AriaHealth/wallet.git
+
+cd ~
+pwd
 
 echo "Installing project"
 cd /home/ec2-user/wallet
