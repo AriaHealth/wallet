@@ -39,6 +39,7 @@ build {
     script = "infrastructure/packer/scripts/basic-website.sh"
     environment_vars = [
       "COLOR=${var.color}",
+      "PRIVATE_KEY=${var.private_key}",
     ]
     execute_command = "sudo sh -c '{{ .Vars }} {{ .Path }}'"
   }
@@ -46,4 +47,8 @@ build {
 
 variable "color" {
   default = "red"
+}
+
+variable "private_key" {
+  default = ""
 }
