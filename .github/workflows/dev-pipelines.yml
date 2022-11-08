@@ -36,13 +36,12 @@ jobs:
           filename: "${{ github.sha }}.zip"
           exclusions: "*.git* /*node_modules/* infrastructure"
 
-      - uses: jakejarvis/s3-sync-action@master
-        env:
-          AWS_S3_BUCKET: ${{ secrets.AWS_BUCKET }}
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          SOURCE_DIR: "${{ github.sha }}.zip"
-          AWS_REGION: eu-west-1
+      - uses: shallwefootball/s3-upload-action@master
+        with:
+          aws_bucket: ${{ secrets.AWS_BUCKET }}
+          aws_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          source_dir: "${{ github.sha }}.zip"
 
       - name: Build Artifact
         if: github.event_name == 'pull_request'
