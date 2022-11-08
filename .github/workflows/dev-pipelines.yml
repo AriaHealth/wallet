@@ -36,8 +36,9 @@ jobs:
         uses: thedoctor0/zip-release@main
         with:
           type: "zip"
-          filename: "./artifacts/${{ github.sha }}.zip"
-          exclusions: '*.git* /*node_modules/* infrastructure'
+          filename: "${{ github.sha }}.zip"
+          path: "./artifacts"
+          exclusions: "*.git* /*node_modules/* infrastructure"
 
       - uses: jakejarvis/s3-sync-action@master
         env:
