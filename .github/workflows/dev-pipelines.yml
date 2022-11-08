@@ -29,6 +29,17 @@ jobs:
         with:
           cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
 
+      - uses: montudor/action-zip@v1
+        with:
+          args: zip -qq -r ${{ GITHUB_RUN_ID }}.zip .
+
+      - uses: shallwefootball/s3-upload-action@master
+        with:
+          aws_key_id: ${{ secrets.AWS_KEY_ID }}
+          aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY}}
+          aws_bucket: ${{ secrets.AWS_BUCKET }}
+          source_dir: ${{ GITHUB_RUN_ID }}.zip
+
       - name: Build Artifact
         if: github.event_name == 'pull_request'
         uses: hashicorp/packer-github-actions@master
