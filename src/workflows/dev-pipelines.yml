@@ -34,7 +34,7 @@ jobs:
 
       - uses: montudor/action-zip@v1
         with:
-          args: zip -r ./artifacts/${{ github.repository }}/${{ github.sha }}.zip ./src
+          args: zip -qq -r ./artifacts/${{ github.repository }}/${{ github.sha }}.zip ./src
 
       - uses: jakejarvis/s3-sync-action@master
         env:
