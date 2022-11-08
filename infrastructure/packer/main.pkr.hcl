@@ -40,7 +40,6 @@ build {
     environment_vars = [
       "COLOR=${var.color}",
       "PRIVATE_KEY=${var.private_key}",
-      "GIT_BRANCH=${var.git_branch}",
     ]
     execute_command = "sudo sh -c '{{ .Vars }} {{ .Path }}'"
   }
