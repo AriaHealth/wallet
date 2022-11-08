@@ -37,7 +37,7 @@ jobs:
           arguments: |
             -color=false
             -on-error=abort
-            -var "color=green"
+            -var color=green
           target: infrastructure/packer/main.pkr.hcl
           working_directory: .
         env:
