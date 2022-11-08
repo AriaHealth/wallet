@@ -114,7 +114,12 @@ module "instance_sg" {
   description = "Security group for EC2 Instances"
   vpc_id      = data.aws_vpc.default.id
 
-  ingress_rules = ["ssh-tcp"]
+  ingress_with_cidr_blocks = [
+    {
+      rule        = "ssh-tcp"
+      cidr_blocks = "0.0.0.0/0"
+    },
+  ]
   computed_ingress_with_source_security_group_id = [
     {
       rule                     = "http-80-tcp"
