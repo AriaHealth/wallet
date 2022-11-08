@@ -114,13 +114,10 @@ module "instance_sg" {
   description = "Security group for EC2 Instances"
   vpc_id      = data.aws_vpc.default.id
 
+  ingress_rules = ["ssh-tcp"]
   computed_ingress_with_source_security_group_id = [
     {
       rule                     = "http-80-tcp"
-      source_security_group_id = module.loadbalancer_sg.security_group_id
-    },
-    {
-      rule                     = "ssh-tcp"
       source_security_group_id = module.loadbalancer_sg.security_group_id
     }
   ]
