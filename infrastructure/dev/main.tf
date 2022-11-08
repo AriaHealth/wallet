@@ -11,7 +11,7 @@ terraform {
     organization = "dcentric-health"
 
     workspaces {
-      name = "gh-actions-vault"
+      name = "wallet-dev-gh-actions"
     }
   }
 }
