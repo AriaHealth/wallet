@@ -32,11 +32,11 @@ jobs:
       - name: Make artifact directory
         run: mkdir -p ./artifacts/${{ github.repository }}
 
-    - name: Archive Release
-      uses: thedoctor0/zip-release@main
-      with:
-        type: 'zip'
-        filename: ./artifacts/${{ github.repository }}/${{ github.sha }}.zip
+      - name: Archive Release
+        uses: thedoctor0/zip-release@main
+        with:
+          type: "zip"
+          filename: ./artifacts/${{ github.repository }}/${{ github.sha }}.zip
 
       - uses: jakejarvis/s3-sync-action@master
         env:
