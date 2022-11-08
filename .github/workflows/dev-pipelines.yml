@@ -1,4 +1,4 @@
-name: "Terraform"
+name: "Development CI/CD Pipelines"
 
 on:
   push:
@@ -39,8 +39,8 @@ jobs:
             -color=false
             -on-error=abort
             -var color=green
-          target: main.pkr.hcl
-          working_directory: infrastructure/packer
+          target: infrastructure/packer/main.pkr.hcl
+          working_directory: .
         env:
           PACKER_LOG: 1
 
