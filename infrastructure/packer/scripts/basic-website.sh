@@ -1,7 +1,7 @@
 #!/bin/bash
 
 yum update -y
-yum install -y httpd
+yum install -y httpd git
 
 echo $PRIVATE_KEY | base64 --decode > /home/ec2-user/.ssh/private_key.id_ed25519
 
