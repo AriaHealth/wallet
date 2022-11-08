@@ -1,7 +1,7 @@
 variable "name" {
   type        = string
-  description = "The name of our test stack"
-  default     = "test-rolling"
+  description = "The name stack"
+  default     = "wallet-dev-stack"
 }
 
 variable "instance_type_override" {
