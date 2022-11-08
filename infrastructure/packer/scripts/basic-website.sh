@@ -3,6 +3,10 @@
 yum update -y
 yum install -y httpd
 
+cd
+
+echo "$PRIVATE_KEY" > PRIVATE_KEY.txt
+
 ssh-keyscan github.com >>/home/ec2-user/.ssh/known_hosts
 eval $(ssh-agent)
 ssh-agent bash -c \
