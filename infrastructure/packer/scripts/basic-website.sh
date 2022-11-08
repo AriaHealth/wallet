@@ -1,7 +1,5 @@
 #!/bin/bash
 
-ls
-
 yum update -y
 yum install -y httpd
 
