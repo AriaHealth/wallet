@@ -30,13 +30,13 @@ jobs:
           cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
 
       - name: Make artifact directory
-        run: mkdir -p ./artifacts/${{ github.repository }}
+        run: mkdir -p ./artifacts
 
       - name: Archive Release
         uses: thedoctor0/zip-release@main
         with:
           type: "zip"
-          filename: ./artifacts/${{ github.repository }}/${{ github.sha }}.zip
+          filename: ./artifacts/${{ github.sha }}.zip
 
       - uses: jakejarvis/s3-sync-action@master
         env:
