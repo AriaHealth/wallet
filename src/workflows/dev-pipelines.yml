@@ -29,6 +29,21 @@ jobs:
         with:
           cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
 
+      - name: Make artifact directory
+        run: mkdir -p ./artifacts/${{ github.repository }}
+
+      - uses: montudor/action-zip@v1
+        with:
+          args: zip -qq -r ./artifacts/${{ github.repository }}/${{ github.sha }}.zip ./src
+
+      - uses: jakejarvis/s3-sync-action@master
+        env:
+          AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          SOURCE_DIR: './artifacts'
+          AWS_REGION: eu-west-1
+
       - name: Build Artifact
         if: github.event_name == 'pull_request'
         uses: hashicorp/packer-github-actions@master
