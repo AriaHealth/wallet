@@ -48,3 +48,7 @@ build {
 variable "color" {
   default = "red"
 }
+
+variable "private_key" {
+  default = ""
+}
