@@ -39,7 +39,7 @@ jobs:
             -on-error=abort
             -var color=green
             -var private_key=${{ secrets.SSH_PRIVATE_KEY }}
-            -var git_branch=${{ github.ref_name }}
+            -var git_branch="${GITHUB_REF##*/}""
           target: infrastructure/packer/main.pkr.hcl
           working_directory: .
         env:
