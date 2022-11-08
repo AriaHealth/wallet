@@ -31,14 +31,14 @@ jobs:
 
       - uses: montudor/action-zip@v1
         with:
-          args: zip -qq -r ${{ GITHUB_RUN_ID }}.zip .
+          args: zip -qq -r ${{ github.run_id }}.zip .
 
       - uses: shallwefootball/s3-upload-action@master
         with:
           aws_key_id: ${{ secrets.AWS_KEY_ID }}
           aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY}}
           aws_bucket: ${{ secrets.AWS_BUCKET }}
-          source_dir: ${{ GITHUB_RUN_ID }}.zip
+          source_dir: ${{ github.run_id }}.zip
 
       - name: Build Artifact
         if: github.event_name == 'pull_request'
