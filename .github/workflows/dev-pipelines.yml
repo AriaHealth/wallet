@@ -36,12 +36,15 @@ jobs:
           filename: "${{ github.sha }}.zip"
           exclusions: "*.git* /*node_modules/* infrastructure"
 
-      - uses: shallwefootball/s3-upload-action@master
+      - uses: keithweaver/aws-s3-github-action@v1.0.0
         with:
-          aws_bucket: ${{ secrets.AWS_BUCKET }}
+          command: cp
           aws_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          source_dir: "${{ github.sha }}.zip"
+          source: "${{ github.sha }}.zip"
+          aws_region: eu-west-1
+          aws_bucket: ${{ secrets.AWS_BUCKET }}
+          destination: s3://${{ secrets.AWS_BUCKET }}/${{ github.sha }}.zip
 
       - name: Build Artifact
         if: github.event_name == 'pull_request'
