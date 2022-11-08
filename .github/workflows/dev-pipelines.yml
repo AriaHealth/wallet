@@ -29,15 +29,11 @@ jobs:
         with:
           cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
 
-      - name: Make artifact directory
-        run: mkdir -p ./artifacts
-
       - name: Archive Release
         uses: thedoctor0/zip-release@main
         with:
           type: "zip"
           filename: "${{ github.sha }}.zip"
-          path: "./artifacts"
           exclusions: "*.git* /*node_modules/* infrastructure"
 
       - uses: jakejarvis/s3-sync-action@master
@@ -45,7 +41,7 @@ jobs:
           AWS_S3_BUCKET: ${{ secrets.AWS_BUCKET }}
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          SOURCE_DIR: "./artifacts/${{ github.sha }}.zip"
+          SOURCE_DIR: "${{ github.sha }}.zip"
           AWS_REGION: eu-west-1
 
       - name: Build Artifact
