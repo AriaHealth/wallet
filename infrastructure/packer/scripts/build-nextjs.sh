@@ -13,7 +13,7 @@ amazon-linux-extras enable nginx1
 
 yum update -y
 yum install -y httpd git nodejs yarn nginx
-npm install pm2 -g
+npm install pm2@latest -g
 
 echo "Setting up environment variables"
 echo -e "[default]\naws_access_key_id=${AWS_ACCESS_KEY_ID}\naws_secret_access_key=${AWS_SECRET_ACCESS_KEY}" >$WORKDIR/.aws/credentials
