@@ -36,9 +36,8 @@ build {
   ]
 
   provisioner "shell" {
-    script = "infrastructure/packer/scripts/basic-website.sh"
+    script = "infrastructure/packer/scripts/build-nextjs.sh"
     environment_vars = [
-      "COLOR=${var.color}",
       "AWS_SECRET_ACCESS_KEY=${var.aws_secret_access_key}",
       "AWS_ACCESS_KEY_ID=${var.aws_access_key_id}",
       "AWS_BUCKET=${var.aws_bucket}",
@@ -48,10 +47,7 @@ build {
   }
 }
 
-variable "color" {
-  default = "red"
-}
-
+// Variables
 variable "aws_secret_access_key" {
   default = ""
 }
