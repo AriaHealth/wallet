@@ -31,9 +31,9 @@ unzip $GITHUB_SHA.zip -d $WORKDIR/service && cd $WORKDIR/service
 cd src && yarn && yarn build
 
 echo "Running the application on pm2"
-/usr/bin/pm2 startup systemd
-/usr/bin/pm2 start "yarn start" --name application
-/usr/bin/pm2 save
+pm2 startup systemd
+pm2 start "yarn start" --name application
+pm2 save
 
 echo "Setting up nginx"
 rm -f /etc/nginx/conf.d/*
