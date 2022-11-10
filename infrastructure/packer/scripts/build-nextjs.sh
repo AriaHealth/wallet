@@ -36,6 +36,8 @@ pm2 start "yarn start" --name application
 pm2 save
 
 echo "Setting up nginx"
+sudo fuser -k 80/tcp
+sudo fuser -k 443/tcp
 rm -f /etc/nginx/conf.d/*
 mkdir -p /etc/nginx/conf.d/
 cp $WORKDIR/service/src/nginx.conf /etc/nginx/conf.d/
