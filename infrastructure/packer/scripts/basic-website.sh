@@ -13,9 +13,13 @@ rpm --import https://dl.yarnpkg.com/rpm/pubkey.gpg
 yum update -y
 yum install -y httpd git nodejs yarn
 
-echo "Setting up AWS CLI"
+echo "Setting up environment variables"
 echo -e "[default]\naws_access_key_id=${AWS_ACCESS_KEY_ID}\naws_secret_access_key=${AWS_SECRET_ACCESS_KEY}" >$WORKDIR/.aws/credentials
-echo -e "[default]\nregion=us-west-2\noutput=json" >$WORKDIR/.aws/config
+echo -e "[default]\nregion=eu-west-1\noutput=json" >$WORKDIR/.aws/config
+echo -e "export AWS_BUCKET=${AWS_BUCKET}\n" >> $WORKDIR/.bash_profile
+echo -e "export GITHUB_SHA=${GITHUB_SHA}\n" >> $WORKDIR/.bash_profile
+source $WORKDIR/.bash_profile
+
 
 # echo "Getting the code"
 # aws s3api get-object --bucket ${AWS_BUCKET} --key ${GITHUB_SHA}.zip || exit
