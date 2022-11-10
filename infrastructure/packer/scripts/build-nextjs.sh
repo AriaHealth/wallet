@@ -13,14 +13,14 @@ amazon-linux-extras enable nginx1
 
 yum update -y
 yum install -y httpd git nodejs yarn nginx
-yarn global add pm2
+npm install pm2 -g
 
 echo "Setting up environment variables"
 echo -e "[default]\naws_access_key_id=${AWS_ACCESS_KEY_ID}\naws_secret_access_key=${AWS_SECRET_ACCESS_KEY}" >$WORKDIR/.aws/credentials
 echo -e "[default]\nregion=eu-west-1\noutput=json" >$WORKDIR/.aws/config
 echo -e "export AWS_BUCKET=${AWS_BUCKET}\n" >>$WORKDIR/.bash_profile
 echo -e "export GITHUB_SHA=${GITHUB_SHA}\n" >>$WORKDIR/.bash_profile
-echo -e "export PATH=$PATH:/usr/local/bin/pm2\n" >>$WORKDIR/.bashrc
+echo -e "export PATH=$PATH:/usr/bin/pm2\n" >>$WORKDIR/.bashrc
 
 source $WORKDIR/.bash_profile
 source $WORKDIR/.bashrc
@@ -31,9 +31,9 @@ unzip $GITHUB_SHA.zip -d $WORKDIR/service && cd $WORKDIR/service
 cd src && yarn && yarn build
 
 echo "Running the application on pm2"
-/usr/local/bin/pm2 startup systemd
-/usr/local/bin/pm2 start "yarn start" --name application
-/usr/local/bin/pm2 save
+/usr/bin/pm2 startup systemd
+/usr/bin/pm2 start "yarn start" --name application
+/usr/bin/pm2 save
 
 echo "Setting up nginx"
 rm -f /etc/nginx/conf.d/*
