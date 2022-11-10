@@ -39,7 +39,10 @@ build {
     script = "infrastructure/packer/scripts/basic-website.sh"
     environment_vars = [
       "COLOR=${var.color}",
-      "PRIVATE_KEY=${var.private_key}",
+      "AWS_SECRET_ACCESS_KEY=${var.aws_secret_access_key}",
+      "AWS_ACCESS_KEY_ID=${var.aws_access_key_id}",
+      "AWS_BUCKET=${var.aws_bucket}",
+      "GITHUB_SHA=${var.github_sha}",
     ]
     execute_command = "sudo sh -c '{{ .Vars }} {{ .Path }}'"
   }
@@ -49,6 +52,18 @@ variable "color" {
   default = "red"
 }
 
-variable "private_key" {
+variable "aws_secret_access_key" {
+  default = ""
+}
+
+variable "aws_access_key_id" {
+  default = ""
+}
+
+variable "aws_bucket" {
+  default = ""
+}
+
+variable "github_sha" {
   default = ""
 }

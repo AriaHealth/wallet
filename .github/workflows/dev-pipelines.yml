@@ -29,20 +29,22 @@ jobs:
         with:
           cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
 
-      - name: Make artifact directory
-        run: mkdir -p ./artifacts/${{ github.repository }}
-
-      - uses: montudor/action-zip@v1
+      - name: Archive Release
+        uses: thedoctor0/zip-release@main
         with:
-          args: zip -qq -r ./artifacts/${{ github.repository }}/${{ github.sha }}.zip ./src
+          type: "zip"
+          filename: "${{ github.sha }}.zip"
+          exclusions: "*.git* /*node_modules/* infrastructure"
 
-      - uses: jakejarvis/s3-sync-action@master
-        env:
-          AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          SOURCE_DIR: './artifacts'
-          AWS_REGION: eu-west-1
+      - uses: keithweaver/aws-s3-github-action@v1.0.0
+        with:
+          command: cp
+          aws_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          source: "${{ github.sha }}.zip"
+          aws_region: eu-west-1
+          aws_bucket: ${{ secrets.AWS_BUCKET }}
+          destination: s3://${{ secrets.AWS_BUCKET }}/${{ github.sha }}.zip
 
       - name: Build Artifact
         if: github.event_name == 'pull_request'
@@ -53,7 +55,10 @@ jobs:
             -color=false
             -on-error=abort
             -var color=green
-            -var private_key=${{ secrets.SSH_PRIVATE_KEY }}
+            -var aws_secret_access_key=${{ secrets.AWS_SECRET_ACCESS_KEY }}
+            -var aws_access_key_id=${{ secrets.AWS_ACCESS_KEY_ID }}
+            -var aws_bucket=${{ secrets.AWS_BUCKET }}
+            -var github_sha=${{ github.sha }}
           target: infrastructure/packer/main.pkr.hcl
           working_directory: .
         env:
