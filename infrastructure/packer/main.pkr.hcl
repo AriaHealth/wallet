@@ -40,7 +40,7 @@ build {
     environment_vars = [
       "COLOR=${var.color}",
       "AWS_SECRET_ACCESS_KEY=${var.aws_secret_access_key}",
-      "AWS_SECRET_KEY_ID=${var.aws_secret_key_id}",
+      "AWS_ACCESS_KEY_ID=${var.aws_access_key_id}",
       "AWS_BUCKET=${var.aws_bucket}",
       "GITHUB_SHA=${var.github_sha}",
     ]
@@ -56,7 +56,7 @@ variable "aws_secret_access_key" {
   default = ""
 }
 
-variable "aws_secret_key_id" {
+variable "aws_access_key_id" {
   default = ""
 }
 
