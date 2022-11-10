@@ -20,6 +20,8 @@ echo -e "[default]\naws_access_key_id=${AWS_ACCESS_KEY_ID}\naws_secret_access_ke
 echo -e "[default]\nregion=eu-west-1\noutput=json" >$WORKDIR/.aws/config
 echo -e "export AWS_BUCKET=${AWS_BUCKET}\n" >> $WORKDIR/.bash_profile
 echo -e "export GITHUB_SHA=${GITHUB_SHA}\n" >> $WORKDIR/.bash_profile
+echo -e "export PATH=$PATH:/usr/local/bin/pm2\n" >> $WORKDIR/.bash_profile
+
 source $WORKDIR/.bash_profile
 
 echo "Setting up the code"
