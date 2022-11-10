@@ -17,8 +17,8 @@ echo "Setting up AWS CLI"
 echo -e "[default]\naws_access_key_id=${AWS_ACCESS_KEY_ID}\naws_secret_access_key=${AWS_SECRET_ACCESS_KEY}" >$WORKDIR/.aws/credentials
 echo -e "[default]\nregion=us-west-2\noutput=json" >$WORKDIR/.aws/config
 
-echo "Getting the code"
-aws s3api get-object --bucket ${AWS_BUCKET} --key ${GITHUB_SHA}.zip || exit
+# echo "Getting the code"
+# aws s3api get-object --bucket ${AWS_BUCKET} --key ${GITHUB_SHA}.zip || exit
 
 # ssh-keyscan github.com >>/home/ec2-user/.ssh/known_hosts
 # eval $(ssh-agent)
