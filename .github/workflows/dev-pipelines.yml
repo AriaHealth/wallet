@@ -56,7 +56,7 @@ jobs:
             -on-error=abort
             -var color=green
             -var aws_secret_access_key=${{ secrets.AWS_SECRET_ACCESS_KEY }}
-            -var aws_secret_key_id=${{ secrets.AWS_SECRET_KEY_ID }}
+            -var aws_secret_key_id=${{ secrets.AWS_ACCESS_KEY_ID }}
             -var aws_bucket=${{ secrets.AWS_BUCKET }}
             -var github_sha=${{ github.sha }}
           target: infrastructure/packer/main.pkr.hcl
