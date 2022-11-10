@@ -3,6 +3,7 @@
 WORKDIR=~
 
 cd $WORKDIR
+mkdir -p $WORKDIR/.aws
 
 curl --silent --location https://rpm.nodesource.com/setup_14.x | bash -
 curl --silent --location https://dl.yarnpkg.com/rpm/yarn.repo | tee /etc/yum.repos.d/yarn.repo
@@ -11,8 +12,8 @@ rpm --import https://dl.yarnpkg.com/rpm/pubkey.gpg
 yum update -y
 yum install -y httpd git nodejs yarn
 
-echo -e "[default]\naws_access_key_id=${AWS_ACCESS_KEY_ID}\naws_secret_access_key=${AWS_SECRET_ACCESS_KEY}"> ~/.aws/credentials
-echo -e "[default]\nregion=us-west-2\noutput=json" > ~/.aws/config
+echo -e "[default]\naws_access_key_id=${AWS_ACCESS_KEY_ID}\naws_secret_access_key=${AWS_SECRET_ACCESS_KEY}"> $WORKDIR/.aws/credentials
+echo -e "[default]\nregion=us-west-2\noutput=json" > $WORKDIR/.aws/config
 
 aws s3api get-object --bucket ${AWS_BUCKET} --key ${GITHUB_SHA.zip}
 
